@@ -24,6 +24,7 @@
           <input type="text" v-model="resume[item.field][key]">
         </div>
       </li>
+      <li>{{count}}</li>
     </ol>
   </div>
 </template>
@@ -55,6 +56,11 @@
           projects: [],
           award: [],
           contacts: []
+        },
+        computed: {
+          count () {
+            return this.$store.state.count
+          }
         }
       }
     }
@@ -99,6 +105,7 @@
           align-items: center;
           margin-top: 16px;
           margin-bottom: 16px;
+          cursor: pointer;
           &.active {
             background: #fff;
             color: #000;

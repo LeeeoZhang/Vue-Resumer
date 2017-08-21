@@ -17,8 +17,11 @@
   import ResumeEditor from './components/ResumeEditor'
   import ResumePreview from './components/ResumePreview'
   import icons from './assets/icons'
+  import store from './store/index'
+
   export default {
     name: 'app',
+    store,
     data: function () {
       return {
         text: 'Hello World!!'
