@@ -20,11 +20,10 @@
           </div>
         </div>
         <div v-else class="resumeField" v-for="(value, key) in resume[item.field]">
-          <label>{{key}}</label>
+          <label >{{key}}</label>
           <input type="text" v-model="resume[item.field][key]">
         </div>
       </li>
-      <li>{{count}}</li>
     </ol>
   </div>
 </template>
@@ -32,37 +31,21 @@
 <script>
   export default {
     name: 'ResumeEditor',
-    data () {
-      return {
-        selected: 'profile',
-        resume: {
-          config: [
-            {field: 'profile', icon: 'id'},
-            {field: 'work history', icon: 'work'},
-            {field: 'education', icon: 'book'},
-            {field: 'projects', icon: 'heart'},
-            {field: 'awards', icon: 'cup'},
-            {field: 'contacts', icon: 'phone'}
-          ],
-          profile: {
-            name: '',
-            city: '',
-            title: ''
-          },
-          'work history': [
-            {company: 'AL', content: '我的第二封工作是'}
-          ],
-          education: [],
-          projects: [],
-          award: [],
-          contacts: []
+    computed: {
+      selected: {
+        get () {
+          return this.$store.state.selected
         },
-        computed: {
-          count () {
-            return this.$store.state.count
-          }
+        set (value) {
+          return this.$store.commit('switchTab', value)
         }
+      },
+      resume () {
+        return this.$store.state.resume
       }
+    },
+    methods: {
+
     }
   }
 </script>

@@ -22,11 +22,6 @@
   export default {
     name: 'app',
     store,
-    data: function () {
-      return {
-        text: 'Hello World!!'
-      }
-    },
     components: {TopBar, ResumeEditor, ResumePreview},
     created () {
       document.body.insertAdjacentHTML('afterbegin', icons)
