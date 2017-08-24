@@ -1,10 +1,15 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import objectPath from 'object-path'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     selected: 'profile',
+    user: {
+      id: '',
+      username: ''
+    },
     resume: {
       config: [
         {field: 'profile', icon: 'id'},
@@ -37,9 +42,21 @@ export default new Vuex.Store({
   mutations: {
     switchTab (state, playload) {
       state.selected = playload
+      localStorage.setItem('state', JSON.stringify(state))
     },
-    changeData (state, playload) {
-      state.resume[playload.key] = playload.value
+    updateResume (state, {path, value}) {
+      objectPath.set(state.resume, path, value)
+      localStorage.setItem('state', JSON.stringify(state))
+    },
+    initState (state, playload) {
+      Object.assign(state, playload)
+    },
+    setUser (state, playload) {
+      Object.assign(state.user, playload)
+      console.log(state.user)
+    },
+    removeUser (state) {
+      state.user.id = null
     }
   }
 })
