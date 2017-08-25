@@ -4,37 +4,37 @@
       <span class="logo">Resumer</span>
       <div class="action">
         <div v-if="logined" class="userActions">
-          <span>你好，{{user.username}}</span>
-          <a class='button' href="#" @click.prevent="signOut">登出</a>
+          <span class="welcome">你好，{{user.username}}</span>
+          <Button type="ghost" class="button" @click.prevent="signOut">Log Out</Button>
         </div>
         <div v-else class="userActions" >
-          <a href="#" class="button primary"
-             @click.prevent="signUpDialogVisible = true">
-            singUp
-          </a>
-          <myDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
-            <SignUpForm @success="login($event)"></SignUpForm>
-          </myDialog>
-          <a class="button" href="#">登录</a>
+          <Button type="ghost" class="button primary" @click.prevent="signUpDialogVisible = true">Sign Up</Button>
+          <Button type="ghost" class="button" @click.prevent="logInDialogVisible = true">Log In</Button>
         </div>
-        <button class="button primary">保存</button>
-        <button class="button">预览</button>
       </div>
     </div>
+    <myDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
+      <SignUpForm @success="logIn($event)"></SignUpForm>
+    </myDialog>
+    <myDialog title="登录" :visible="logInDialogVisible" @close="logInDialogVisible = false">
+      <LoginForm @success="logIn($event)"></LoginForm>
+    </myDialog>
   </div>
 </template>
 
 <script>
   import myDialog from './myDialog'
   import SignUpForm from './SignUpForm'
+  import LoginForm from './LoginForm.vue'
   import AV from '../lib/leancloud'
 
   export default {
     name: 'TopBar',
-    components: {myDialog, SignUpForm},
+    components: {myDialog, SignUpForm, LoginForm},
     data () {
       return {
-        signUpDialogVisible: false
+        signUpDialogVisible: false,
+        logInDialogVisible: false
       }
     },
     computed: {
@@ -46,7 +46,7 @@
       }
     },
     methods: {
-      login (user) {
+      logIn (user) {
         this.signUpDialogVisible = false
         this.$store.commit('setUser', user)
       },
@@ -73,36 +73,37 @@
       padding: 0 16px;
     }
     .logo {
-      font-weight: 900;
+      font-weight: normal;
       font-size: 24px;
       color: #000;
     }
     .button {
-      width: 72px;
-      height: 32px;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: #222;
       outline: none;
-      text-decoration: none;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      vertical-align: middle;
-      &:hover {
-        box-shadow: 1px 1px 1px hsla(0, 0, 0, 0.50);
-      }
       &.primary {
-        background: #02af5f;
-        color: #000;
+        color: #fff;
+        background: #495060;
+      }
+      &:hover {
+        animation: shake 1s linear infinite alternate;
       }
     }
     .action {
       display: flex;
       .userActions {
         margin-right: 3em;
+        .welcome {
+          margin-right: .5em;
+        }
       }
     }
+  }
+  @keyframes shake {
+    0% {
+      transform: rotate(3deg);
+    }
+    100% {
+      transform: rotate(-3deg);
+  }
+
   }
 </style>
