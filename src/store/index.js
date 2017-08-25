@@ -10,22 +10,14 @@ export default new Vuex.Store({
       id: '',
       username: ''
     },
-    resume: {
-      config: [
+    resume: {},
+    resumeConfig: [
         {field: 'profile', icon: 'id', key: ['name', 'city', 'title', 'birthday']},
-        {field: 'workHistory', icon: 'work', key: ['company', 'details']},
-        {field: 'education', icon: 'book', key: ['school', 'degree']},
-        {field: 'projects', icon: 'heart', key: ['name', 'details']},
-        {field: 'awards', icon: 'cup', key: ['name', 'details']},
-        {field: 'contacts', icon: 'phone', key: ['contact', 'content']}
-      ],
-      profile: {},
-      workHistory: [],
-      education: [],
-      projects: [],
-      awards: [],
-      contacts: []
-    }
+        {field: 'workHistory', icon: 'work', type: 'array', key: ['company', 'details']},
+        {field: 'education', icon: 'book', type: 'array', key: ['school', 'degree']},
+        {field: 'projects', icon: 'heart', type: 'array', key: ['name', 'details']},
+        {field: 'awards', icon: 'cup', type: 'array', key: ['name', 'details']},
+        {field: 'contacts', icon: 'phone', key: ['email', 'tel', 'github']}]
   },
   mutations: {
     switchTab (state, playload) {
@@ -37,14 +29,25 @@ export default new Vuex.Store({
       localStorage.setItem('state', JSON.stringify(state))
     },
     initState (state, playload) {
-      Object.assign(state, playload)
+      state.resumeConfig.map((item) => {
+        if (item.type === 'array') {
+          Vue.set(state.resume, item.field, [])
+        } else {
+          Vue.set(state.resume, item.field, {})
+          item.key.map((key) => {
+            Vue.set(state.resume[item.field], key, '')
+          })
+        }
+      })
+      if (playload) {
+        Object.assign(state, playload)
+      }
     },
     setUser (state, playload) {
       Object.assign(state.user, playload)
-      console.log(state.user)
     },
     removeUser (state) {
-      state.user.id = null
+      state.user.id = ''
     }
   }
 })

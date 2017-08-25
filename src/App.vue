@@ -29,6 +29,7 @@
     created () {
       document.body.insertAdjacentHTML('afterbegin', icons)
       let state = localStorage.getItem('state')
+      console.log(state)
       if (state) {
         state = JSON.parse(state)
       }

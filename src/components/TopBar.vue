@@ -14,10 +14,10 @@
       </div>
     </div>
     <myDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
-      <SignUpForm @success="logIn($event)"></SignUpForm>
+      <SignUpForm @success="logIn($event)"  @close="signUpDialogVisible = false"></SignUpForm>
     </myDialog>
     <myDialog title="登录" :visible="logInDialogVisible" @close="logInDialogVisible = false">
-      <LoginForm @success="logIn($event)"></LoginForm>
+      <LoginForm @success="logIn($event)" @close="logInDialogVisible = false"></LoginForm>
     </myDialog>
   </div>
 </template>

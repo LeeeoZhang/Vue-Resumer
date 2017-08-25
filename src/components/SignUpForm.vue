@@ -24,6 +24,7 @@
 
   export default {
     name: 'SignUpForm',
+    props: ['visible'],
     data () {
       return {
         formData: {
@@ -44,6 +45,7 @@
         }, (error) => {
           this.errorMessage = getErrorMessage(error)
         })
+        this.$emit('close')
       }
     }
   }

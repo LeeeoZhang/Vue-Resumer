@@ -2,7 +2,7 @@
   <div id="resumeEditor">
     <nav>
       <ol>
-        <li v-for="(item, index) in resume.config" :class="{active: item.field === selected}" @click="selected = item.field">
+        <li v-for="(item, index) in resumeConfig" :class="{active: item.field === selected}" @click="selected = item.field">
           <svg class="icon">
              <use :xlink:href="`#icon-${item.icon}`"></use>
           </svg>
@@ -10,27 +10,64 @@
       </ol>
     </nav>
     <ol class="panels">
-      <li v-for="(item, index) in resume.config" v-show="item.field === selected">
+      <li v-for="(item, index) in resumeConfig" v-show="item.field === selected">
+        <h3>{{dict[item.field]}}</h3>
         <div v-if="item.type === 'array'">
-          <div class="subitem" v-for="(subitem, i) in resume[item.field]">
-            <div class="resumeField" v-for="(value, key) in subitem">
+          <div v-for="(subitem, i) in resume[item.field]">
+            <div class="resumeInfo" v-for="(value, key) in subitem">
               <label>{{key}}</label>
-              <input type="text" :value="value" @input="changeResumeField(`${item.field}.${i}.${key}`, $event.target.value)">
+              <input type="text" @input="changeResumeField(`${item.field}.${i}.${key}`, $event.target.value)">
             </div>
           </div>
         </div>
-        <div v-else class="resumeField" v-for="(value, key) in resume[item.field]">
+
+        <div v-else class="resumeInfo" v-for="(value, key) in resume[item.field]">
           <label >{{key}}</label>
-          <input type="text" :value="value" @input="changeResumeField(`${item.field}.${key}`,$event.target.value)">
+          <input type="text" @input="changeResumeField(`${item.field}.${key}`,$event.target.value)">
         </div>
       </li>
     </ol>
+
+
+
+
+
+
+
+    <!--<ol class="panels">-->
+      <!--<li v-for="(item, index) in resumeConfig" v-show="item.field === selected">-->
+        <!--<div v-if="item.type === 'array'">-->
+          <!--<div class="subitem" v-for="(subitem, i) in resume[item.field]">-->
+            <!--<div class="resumeField" v-for="(value, key) in subitem">-->
+              <!--<label>{{key}}</label>-->
+              <!--<input type="text" :value="value" @input="changeResumeField(`${item.field}.${i}.${key}`, $event.target.value)">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div v-else class="resumeField" v-for="(value, key) in resume[item.field]">-->
+          <!--<label >{{key}}</label>-->
+          <!--<input type="text" :value="value" @input="changeResumeField(`${item.field}.${key}`,$event.target.value)">-->
+        <!--</div>-->
+      <!--</li>-->
+    <!--</ol>-->
   </div>
 </template>
 
 <script>
   export default {
     name: 'ResumeEditor',
+    data () {
+      return {
+        dict: {
+          profile: 'Personal Information',
+          workHistory: 'Work Experience',
+          education: 'Education',
+          projects: 'Project Experience',
+          awards: 'Awards',
+          contacts: 'Contacts'
+        }
+      }
+    },
     computed: {
       selected: {
         get () {
@@ -42,6 +79,9 @@
       },
       resume () {
         return this.$store.state.resume
+      },
+      resumeConfig () {
+        return this.$store.state.resumeConfig
       }
     },
     methods: {
