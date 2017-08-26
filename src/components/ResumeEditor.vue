@@ -6,31 +6,32 @@
           <svg class="icon">
              <use :xlink:href="`#icon-${item.icon}`"></use>
           </svg>
+          <p>{{iconDict[item.field]}}</p>
         </li>
       </ol>
     </nav>
     <ol class="panels">
       <li v-for="(item, index) in resumeConfig" v-show="item.field === selected">
-        <h3>{{dict[item.field]}}</h3>
+        <h3>{{dict[item.field]}}
+          <Button type="ghost" shape="circle" icon="plus-round" v-if="item.field !== 'profile' && item.field !== 'contacts'" @click="addNewData(item)"></Button>
+        </h3>
         <div v-if="item.type === 'array'">
           <div v-for="(subitem, i) in resume[item.field]">
             <div class="resumeInfo" v-for="(value, key) in subitem">
               <label>{{key}}</label>
-              <input type="text" @input="changeResumeField(`${item.field}.${i}.${key}`, $event.target.value)">
+              <Input v-if="key === 'details'" type="textarea" :autosize="true" placeholder="Please enter..." @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
+              <Input v-else placeholder='Please enter...' style="width: 300px" @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
             </div>
           </div>
         </div>
 
         <div v-else class="resumeInfo" v-for="(value, key) in resume[item.field]">
-          <label >{{key}}</label>
-          <input type="text" @input="changeResumeField(`${item.field}.${key}`,$event.target.value)">
+          <label>{{key}}</label>
+          <Input placeholder="Please enter..." style="width: 300px" @on-change="changeResumeInfo(`${item.field}.${key}`,$event.target.value)"></Input>
         </div>
       </li>
     </ol>
-
-
-
-
+  </div>
 
 
 
@@ -50,7 +51,6 @@
         <!--</div>-->
       <!--</li>-->
     <!--</ol>-->
-  </div>
 </template>
 
 <script>
@@ -63,6 +63,14 @@
           workHistory: 'Work Experience',
           education: 'Education',
           projects: 'Project Experience',
+          awards: 'Awards',
+          contacts: 'Contacts'
+        },
+        iconDict: {
+          profile: 'Personal',
+          workHistory: 'Work',
+          education: 'Education',
+          projects: 'Project',
           awards: 'Awards',
           contacts: 'Contacts'
         }
@@ -85,11 +93,14 @@
       }
     },
     methods: {
-      changeResumeField (path, value) {
+      changeResumeInfo (path, value) {
         this.$store.commit('updateResume', {
           path,
           value
         })
+      },
+      addNewData (dataConfig) {
+        this.$store.commit('addNewData', dataConfig)
       }
     }
   }
@@ -101,14 +112,22 @@
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
     display: flex;
     flex-direction: row;
-    overflow: auto;
     >.panels{
       flex-grow: 1;
+      overflow: auto;
       >li {
         padding: 24px;
-        .resumeField {
+        >h3 {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .resumeInfo {
+          margin-bottom: 20px;
+          margin-top: 10px;
           label {
             display: block;
+            font-weight: bold;
           }
           input[type=text] {
             margin: 16px 0;
@@ -122,21 +141,41 @@
       }
     }
     >nav {
-      width: 80px;
+      width: 72px;
       background: #000;
       color: #fff;
+      &:hover{
+        >ol{
+          >li {
+            p {
+              transform: translateX(0px)
+            }
+          }
+        }
+      }
       >ol {
         >li {
           height: 48px;
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
           margin-top: 16px;
           margin-bottom: 16px;
           cursor: pointer;
+          font-size: 12px;
           &.active {
             background: #fff;
             color: #000;
+          }
+          p {
+            transform: translateX(-100px);
+            transition: transform 0.5s;
+          }
+          &.active {
+            p {
+              transform: translateX(0px);
+            }
           }
           svg.icon {
             width: 24px;

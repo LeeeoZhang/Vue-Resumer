@@ -39,15 +39,22 @@ export default new Vuex.Store({
           })
         }
       })
-      if (playload) {
-        Object.assign(state, playload)
-      }
+      Object.assign(state, playload)
     },
     setUser (state, playload) {
       Object.assign(state.user, playload)
     },
     removeUser (state) {
       state.user.id = ''
+    },
+    addNewData (state, dataConfig) {
+      let name = dataConfig.key[0]
+      let content = dataConfig.key[1]
+      state.resume[dataConfig.field].push({
+        [name]: '',
+        [content]: ''
+      })
+      localStorage.setItem('state', JSON.stringify(state))
     }
   }
 })

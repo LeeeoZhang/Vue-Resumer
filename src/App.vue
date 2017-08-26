@@ -46,6 +46,7 @@
     flex-direction: column;
     background: #EAEBEC;
     min-width: 1024px;
+    min-height: 500px;
     > main {
       flex-grow: 1;
       min-width: 1024px;
@@ -53,7 +54,7 @@
       margin: 16px 0 16px 0;
       display: flex;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 16px 0 0;
       width: 100%;
       align-self: center;
     }

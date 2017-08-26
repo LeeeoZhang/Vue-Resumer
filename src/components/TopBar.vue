@@ -73,7 +73,6 @@
       padding: 0 16px;
     }
     .logo {
-      font-weight: normal;
       font-size: 24px;
       color: #000;
     }

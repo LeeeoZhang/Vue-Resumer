@@ -14,7 +14,7 @@
       <ol>
         <li v-for="item in resume.workHistory">
           <h3>{{item.company}}</h3>
-          <p v-show="item.content">{{item.details}}</p>
+          <p v-show="item.details">{{item.details}}</p>
         </li>
       </ol>
     </section>
@@ -24,7 +24,7 @@
       <ol>
         <li v-for="item in resume.education">
           <h3>{{item.school}}</h3>
-          <p v-show="item.content">{{item.degree}}</p>
+          <p v-show="item.degree">{{item.degree}}</p>
         </li>
       </ol>
     </section>
@@ -34,7 +34,7 @@
       <ol>
         <li v-for="item in resume.projects">
           <h3>{{item.name}}</h3>
-          <p v-show="item.content">{{item.details}}</p>
+          <p v-show="item.details">{{item.details}}</p>
         </li>
       </ol>
     </section>
@@ -44,7 +44,7 @@
       <ol>
         <li v-for="item in resume.awards">
           <h3>{{item.name}}</h3>
-          <p v-show="item.content">{{item.details}}</p>
+          <p v-show="item.details">{{item.details}}</p>
         </li>
       </ol>
     </section>
@@ -54,7 +54,7 @@
       <ol>
         <li v-for="item in resume.contacts">
           <h3>{{item.name}}</h3>
-          <p v-show="item.content">{{item.details}}</p>
+          <p v-show="item.details">{{item.details}}</p>
         </li>
       </ol>
     </section>
