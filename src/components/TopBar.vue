@@ -64,7 +64,6 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
     >.wrap {
       min-width: 1024px;
-      max-width: 1440px;
       margin: 0 auto;
       height: 64px;
       display: flex;
@@ -75,6 +74,10 @@
     .logo {
       font-size: 24px;
       color: #000;
+      background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: changeColor 30s infinite;
     }
     .button {
       outline: none;
@@ -104,5 +107,14 @@
       transform: rotate(-3deg);
   }
 
+  }
+  @keyframes changeColor {
+    from {
+      -webkit-filter: hue-rotate(0deg);
+    }
+
+    to {
+      -webkit-filter: hue-rotate(-360deg);
+    }
   }
 </style>

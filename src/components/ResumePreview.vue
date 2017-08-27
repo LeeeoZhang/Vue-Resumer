@@ -4,59 +4,56 @@
       <h1>{{resume.profile.name}}</h1>
       <h2>{{resume.profile.title}}</h2>
       <p>
-        <small>{{resume.profile.city}}</small>
-        <small>{{resume.profile.birthday}}</small>
+        <small><Icon type="ios-location"></Icon>{{resume.profile.city}}</small>
+        <small><Icon type="egg"></Icon>{{resume.profile.birthday}}</small>
       </p>
+      <hr>
     </section>
-
     <section data-name="workHistory" v-if="resume.workHistory && resume.workHistory.length > 0">
-      <h2>工作经历</h2>
+      <h1>工作经历</h1>
       <ol>
         <li v-for="item in resume.workHistory">
           <h3>{{item.company}}</h3>
           <p v-show="item.details">{{item.details}}</p>
         </li>
       </ol>
+      <hr>
     </section>
-
     <section data-name="education" v-if="resume.education && resume.education.length > 0">
-      <h2>毕业院校</h2>
+      <h1>毕业院校</h1>
       <ol>
         <li v-for="item in resume.education">
           <h3>{{item.school}}</h3>
           <p v-show="item.degree">{{item.degree}}</p>
         </li>
       </ol>
+      <hr>
     </section>
-
     <section data-name="projects" v-if="resume.projects && resume.projects.length > 0">
-      <h2>项目经历</h2>
+      <h1>项目经历</h1>
       <ol>
         <li v-for="item in resume.projects">
           <h3>{{item.name}}</h3>
           <p v-show="item.details">{{item.details}}</p>
         </li>
       </ol>
+      <hr>
     </section>
-
     <section data-name="awards" v-if="resume.awards && resume.awards.length > 0">
-      <h2>获奖情况</h2>
+      <h1>获奖情况</h1>
       <ol>
         <li v-for="item in resume.awards">
           <h3>{{item.name}}</h3>
           <p v-show="item.details">{{item.details}}</p>
         </li>
       </ol>
+      <hr>
     </section>
-
     <section data-name="contacts" v-if="resume.contacts && resume.contacts.tel">
-      <h2>联系方式</h2>
-      <ol>
-        <li v-for="item in resume.contacts">
-          <h3>{{item.name}}</h3>
-          <p v-show="item.details">{{item.details}}</p>
-        </li>
-      </ol>
+      <h1>联系方式</h1>
+      <p><Icon type="ios-email-outline" size="30"></Icon>{{resume.contacts.email}}</p>
+      <p><Icon type="ios-telephone-outline" size="30"></Icon>{{resume.contacts.tel}}</p>
+      <p><Icon type="social-github-outline" size="30"></Icon><a href="https://github.com/LeeeoZhang">{{resume.contacts.github}}</a></p>
     </section>
   </div>
 </template>
@@ -91,21 +88,62 @@
     ol {
       list-style: none;
     }
-    section + section {
-      margin-top: 2em;
+    section {
+      margin-top: 3em;
+      >h1 {
+        font-weight: bold;
+      }
+      >ol {
+        >li {
+          margin: 2em 0;
+          >h3 {
+            font-weight: bold;
+            margin-bottom: .5em;
+            font-size: 16px;
+          }
+          >p {
+            font-size: 16px;
+          }
+        }
+      }
     }
     p {
       white-space: pre-line;
     }
     section[data-name='profile'] {
+      margin-bottom: 1.5em;
       >h1 {
         margin: .1em 0;
         font-size: 4em;
+      }
+      >p {
+        margin: 1em 0;
+        >small {
+          margin-left: .8em;
+          >i {
+            margin-right: .2em;
+          }
+        }
       }
     }
     section[data-name='education'] {
       li {
         line-height: 1.5;
+      }
+    }
+    section[data-name='contacts'] {
+      >h1 {
+        margin-bottom: .5em;
+      }
+      >p {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+        >i {
+          margin-right: .5em;
+        }
       }
     }
   }

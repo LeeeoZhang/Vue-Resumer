@@ -36,6 +36,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 5;
     .dialog {
       background: #fff;
       min-height: 4em;

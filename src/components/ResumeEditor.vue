@@ -15,20 +15,25 @@
         <h3>{{dict[item.field]}}
           <Button type="ghost" shape="circle" icon="plus-round" v-if="item.field !== 'profile' && item.field !== 'contacts'" @click="addNewData(item)"></Button>
         </h3>
-        <div v-if="item.type === 'array'">
-          <div v-for="(subitem, i) in resume[item.field]">
-            <div class="resumeInfo" v-for="(value, key) in subitem">
-              <label>{{key}}</label>
-              <Input v-if="key === 'details'" type="textarea" :autosize="true" placeholder="Please enter..." @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
-              <Input v-else placeholder='Please enter...' style="width: 300px" @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
+          <div v-if="item.type === 'array'">
+            <div v-for="(subitem, i) in resume[item.field]">
+              <div class="deleteAction">
+                <hr>
+                <Icon type="ios-arrow-right"></Icon>
+                <Button type="ghost" shape="circle" icon="ios-trash-outline" size="small" @click="deleteData(i, item)"></Button>
+              </div>
+              <div class="resumeInfo" v-for="(value, key) in subitem">
+                <label>{{key}}</label>
+                <Input v-if="key === 'details'" :value="value" type="textarea" :autosize="true" placeholder="Please enter..." @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
+                <Input v-else placeholder='Please enter...' :value="value" @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div v-else class="resumeInfo" v-for="(value, key) in resume[item.field]">
-          <label>{{key}}</label>
-          <Input placeholder="Please enter..." style="width: 300px" @on-change="changeResumeInfo(`${item.field}.${key}`,$event.target.value)"></Input>
-        </div>
+          <div v-else class="resumeInfo animated" v-for="(value, key) in resume[item.field]">
+            <label>{{key}}</label>
+            <Input placeholder="Please enter..." :value="value" style="width: 300px" @on-change="changeResumeInfo(`${item.field}.${key}`,$event.target.value)"></Input>
+          </div>
       </li>
     </ol>
   </div>
@@ -68,9 +73,9 @@
         },
         iconDict: {
           profile: 'Personal',
-          workHistory: 'Work',
+          workHistory: 'Works',
           education: 'Education',
-          projects: 'Project',
+          projects: 'Projects',
           awards: 'Awards',
           contacts: 'Contacts'
         }
@@ -101,12 +106,21 @@
       },
       addNewData (dataConfig) {
         this.$store.commit('addNewData', dataConfig)
+      },
+      deleteData (dataIndex, dataConfig) {
+        this.$store.commit('deleteData', {dataIndex, dataConfig})
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+    opacity: 1;
+  }
   #resumeEditor {
     background: #fff;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
@@ -122,8 +136,17 @@
           justify-content: space-between;
           align-items: center;
         }
+        .deleteAction {
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          >hr {
+            flex-grow: 1;
+          }
+        }
         .resumeInfo {
-          margin-bottom: 20px;
+          margin-bottom: 10px;
           margin-top: 10px;
           label {
             display: block;

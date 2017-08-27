@@ -55,6 +55,10 @@ export default new Vuex.Store({
         [content]: ''
       })
       localStorage.setItem('state', JSON.stringify(state))
+    },
+    deleteData (state, {dataIndex, dataConfig}) {
+      state.resume[dataConfig.field].splice(dataIndex, 1)
+      localStorage.setItem('state', JSON.stringify(state))
     }
   }
 })

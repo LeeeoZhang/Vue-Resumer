@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page">
-      <header>
+      <header >
         <TopBar/>
       </header>
       <main>
@@ -15,6 +15,7 @@
 <script>
   import 'normalize.css'
   import './assets/reset.css'
+  import './assets/animate.css'
   import TopBar from './components/TopBar'
   import ResumeEditor from './components/ResumeEditor'
   import ResumePreview from './components/ResumePreview'
@@ -26,6 +27,11 @@
     name: 'app',
     store,
     components: {TopBar, ResumeEditor, ResumePreview},
+    computed: {
+      user () {
+        return this.$store.state.user.id
+      }
+    },
     created () {
       document.body.insertAdjacentHTML('afterbegin', icons)
       let state = localStorage.getItem('state')
@@ -35,6 +41,7 @@
       }
       this.$store.commit('initState', state)
       this.$store.commit('setUser', getAVUser())
+      console.log(this.user)
     }
   }
 </script>
@@ -44,13 +51,12 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: #EAEBEC;
+    background: linear-gradient(to bottom right, #fff, #000);
     min-width: 1024px;
     min-height: 500px;
     > main {
       flex-grow: 1;
       min-width: 1024px;
-      max-width: 1440px;
       margin: 16px 0 16px 0;
       display: flex;
       justify-content: space-between;
