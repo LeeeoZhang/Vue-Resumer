@@ -1,6 +1,6 @@
 # resumer
 
-> vue.js demo
+[Preview](https://leeeozhang.github.io/Vue-Resumer/dist)
 
 ## Build Setup
 
