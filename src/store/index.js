@@ -40,12 +40,16 @@ export default new Vuex.Store({
         }
       })
       Object.assign(state, playload)
+      localStorage.setItem('state', JSON.stringify(state))
     },
     setUser (state, playload) {
       Object.assign(state.user, playload)
+      localStorage.setItem('state', JSON.stringify(state))
     },
     removeUser (state) {
       state.user.id = ''
+      state.user.username = ''
+      localStorage.setItem('state', JSON.stringify(state))
     },
     addNewData (state, dataConfig) {
       let name = dataConfig.key[0]

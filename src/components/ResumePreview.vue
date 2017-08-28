@@ -4,8 +4,8 @@
       <h1>{{resume.profile.name}}</h1>
       <h2>{{resume.profile.title}}</h2>
       <p>
-        <small><Icon type="ios-location"></Icon>{{resume.profile.city}}</small>
-        <small><Icon type="egg"></Icon>{{resume.profile.birthday}}</small>
+        <small v-if="resume.profile.city"><Icon type="ios-location"></Icon>{{resume.profile.city}}</small>
+        <small v-if="resume.profile.birthday"><Icon type="egg"></Icon>{{resume.profile.birthday}}</small>
       </p>
       <hr>
     </section>
@@ -65,9 +65,6 @@
       resume () {
         return this.$store.state.resume
       }
-    },
-    created () {
-      console.log(this.resume.education)
     }
   }
 </script>
@@ -80,6 +77,9 @@
     color: #333;
     line-height: 1.2;
     overflow: auto;
+    flex-grow: 1;
+    margin-left: 16px;
+    transition: all .5s;
     * {
       box-sizing: border-box;
       font-variant: normal;
@@ -146,5 +146,9 @@
         }
       }
     }
+  }
+  #resumePreview.preview {
+    flex-grow: .5;
+    margin: 0 auto;
   }
 </style>

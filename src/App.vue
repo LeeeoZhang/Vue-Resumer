@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="page">
-      <header >
-        <TopBar/>
+      <header v-if="signUpOrLogIn === true" :class="{preview: isPreview}">
+        <TopBar @close="signUpOrLogIn = false" class="animated bounceInDown" @preview="isPreview = true"/>
       </header>
-      <main>
-        <ResumeEditor/>
-        <ResumePreview/>
+      <main v-if="signUpOrLogIn === true">
+        <ResumeEditor class="animated bounceInLeft" :class="{preview: isPreview}"/>
+        <ResumePreview class="animated bounceInRight" :class="{preview: isPreview}"/>
       </main>
+      <SignUpAndLogIn @success="logIn($event)" v-if="signUpOrLogIn === false"></SignUpAndLogIn>
     </div>
+    <Button type="primary" class="button exitButton"  v-show="isPreview" @click.prevent="isPreview = false" >Exit Preview</Button>
   </div>
 </template>
 
@@ -19,29 +21,43 @@
   import TopBar from './components/TopBar'
   import ResumeEditor from './components/ResumeEditor'
   import ResumePreview from './components/ResumePreview'
+  import SignUpAndLogIn from './components/SignUpAndLogIn'
   import icons from './assets/icons'
   import store from './store/index'
   import getAVUser from './lib/getAVUser'
 
   export default {
     name: 'app',
+    data () {
+      return {
+        signUpOrLogIn: false,
+        isPreview: false
+      }
+    },
     store,
-    components: {TopBar, ResumeEditor, ResumePreview},
+    components: {TopBar, ResumeEditor, ResumePreview, SignUpAndLogIn},
     computed: {
-      user () {
+      userid () {
         return this.$store.state.user.id
       }
     },
     created () {
       document.body.insertAdjacentHTML('afterbegin', icons)
       let state = localStorage.getItem('state')
-      console.log(state)
       if (state) {
         state = JSON.parse(state)
       }
       this.$store.commit('initState', state)
       this.$store.commit('setUser', getAVUser())
-      console.log(this.user)
+      if (this.userid) {
+        this.signUpOrLogIn = true
+      }
+    },
+    methods: {
+      logIn (user) {
+        this.$store.commit('setUser', user)
+        this.signUpOrLogIn = true
+      }
     }
   }
 </script>
@@ -51,10 +67,12 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom right, #fff, #000);
+    background: #ccc;
     min-width: 1024px;
     min-height: 500px;
-    > main {
+    position: relative;
+    >main {
+      position: relative;
       flex-grow: 1;
       min-width: 1024px;
       margin: 16px 0 16px 0;
@@ -64,15 +82,12 @@
       width: 100%;
       align-self: center;
     }
-  }
-  #resumeEditor {
-    min-width: 35%;
-    background: #444;
-  }
-  #resumePreview {
-    flex-grow: 1;
-    margin-left: 16px;
-    background: #777;
+    >header {
+      transition: transform .5s;
+    }
+    >header.preview {
+      transform: translateY(-100%);
+    }
   }
   svg.icon {
     height: 1em;
@@ -80,5 +95,16 @@
     fill: currentColor;
     vertical-align: center;
     font-size: 16px;
+  }
+  .exitButton {
+    position: fixed;
+    right: 145px;
+    bottom: 18px;
+    background: #000;
+    border-color: #000;
+  }
+  .exitButton:hover {
+    animation: rotate 1s linear infinite alternate;
+    background: #555;
   }
 </style>

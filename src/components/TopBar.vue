@@ -2,39 +2,25 @@
   <div id="TopBar">
     <div class="wrap">
       <span class="logo">Resumer</span>
-      <div class="action">
-        <div v-if="logined" class="userActions">
-          <span class="welcome">你好，{{user.username}}</span>
-          <Button type="ghost" class="button" @click.prevent="signOut">Log Out</Button>
-        </div>
-        <div v-else class="userActions" >
-          <Button type="ghost" class="button primary" @click.prevent="signUpDialogVisible = true">Sign Up</Button>
-          <Button type="ghost" class="button" @click.prevent="logInDialogVisible = true">Log In</Button>
-        </div>
+      <div v-if="logined" class="userActions">
+        <span class="welcome">Hello，{{user.username}}</span>
+        <Button type="ghost" class="button logout" @click.prevent="logOut">Logout</Button>
+        <Button type="primary"  class="button preview" @click.prevent="preview">Preview</Button>
       </div>
     </div>
-    <myDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
-      <SignUpForm @success="logIn($event)"  @close="signUpDialogVisible = false"></SignUpForm>
-    </myDialog>
-    <myDialog title="登录" :visible="logInDialogVisible" @close="logInDialogVisible = false">
-      <LoginForm @success="logIn($event)" @close="logInDialogVisible = false"></LoginForm>
-    </myDialog>
   </div>
 </template>
 
 <script>
-  import myDialog from './myDialog'
-  import SignUpForm from './SignUpForm'
-  import LoginForm from './LoginForm.vue'
+  import SignUpAndLogIn from './SignUpAndLogIn'
   import AV from '../lib/leancloud'
 
   export default {
     name: 'TopBar',
-    components: {myDialog, SignUpForm, LoginForm},
+    components: {SignUpAndLogIn},
     data () {
       return {
-        signUpDialogVisible: false,
-        logInDialogVisible: false
+        signUpDOrLogIn: false
       }
     },
     computed: {
@@ -46,13 +32,13 @@
       }
     },
     methods: {
-      logIn (user) {
-        this.signUpDialogVisible = false
-        this.$store.commit('setUser', user)
-      },
-      signOut () {
+      logOut () {
         AV.User.logOut()
         this.$store.commit('removeUser')
+        this.$emit('close')
+      },
+      preview () {
+        this.$emit('preview')
       }
     }
   }
@@ -86,20 +72,27 @@
         background: #495060;
       }
       &:hover {
-        animation: shake 1s linear infinite alternate;
+        animation: rotate 1s linear infinite alternate;
       }
     }
-    .action {
+    .preview {
+      background: #000;
+      border-color: #000;
+    }
+    .userActions {
+      margin-right: 3em;
       display: flex;
-      .userActions {
-        margin-right: 3em;
-        .welcome {
-          margin-right: .5em;
-        }
+      justify-content: space-around;
+      .welcome {
+        margin-right: .8em;
+        align-self: flex-end;
+      }
+      .logout {
+        margin-right: .8em;
       }
     }
   }
-  @keyframes shake {
+  @keyframes rotate {
     0% {
       transform: rotate(3deg);
     }

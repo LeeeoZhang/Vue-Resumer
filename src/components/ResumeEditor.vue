@@ -126,6 +126,8 @@
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
     display: flex;
     flex-direction: row;
+    min-width: 35%;
+    transition: left 1s;
     >.panels{
       flex-grow: 1;
       overflow: auto;
@@ -207,5 +209,8 @@
         }
       }
     }
+  }
+  #resumeEditor.preview {
+   display: none;
   }
 </style>
