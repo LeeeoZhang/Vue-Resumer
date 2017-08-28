@@ -10,7 +10,7 @@
       </main>
       <SignUpAndLogIn @success="logIn($event)" v-if="signUpOrLogIn === false"></SignUpAndLogIn>
     </div>
-    <Button type="primary" class="button exitButton"  v-show="isPreview" @click.prevent="isPreview = false" >Exit review</Button>
+    <Button type="primary" class="button exitButton"  v-show="isPreview" @click.prevent="isPreview = false" >Exit Preview</Button>
   </div>
 </template>
 
