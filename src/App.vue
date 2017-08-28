@@ -62,7 +62,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .page {
     height: 100vh;
     display: flex;
@@ -98,7 +98,7 @@
   }
   .exitButton {
     position: fixed;
-    right: 145px;
+    right: 130px;
     bottom: 18px;
     background: #000;
     border-color: #000;
