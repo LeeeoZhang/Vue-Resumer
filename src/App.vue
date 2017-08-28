@@ -10,7 +10,7 @@
       </main>
       <SignUpAndLogIn @success="logIn($event)" v-if="signUpOrLogIn === false"></SignUpAndLogIn>
     </div>
-    <Button type="primary" class="button exitButton"  v-show="isPreview" @click.prevent="isPreview = false" >Exit Preview</Button>
+    <Button type="primary" class="button exitButton"  v-show="isPreview" @click.prevent="isPreview = false" >Exit review</Button>
   </div>
 </template>
 
@@ -62,7 +62,7 @@
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   .page {
     height: 100vh;
     display: flex;
