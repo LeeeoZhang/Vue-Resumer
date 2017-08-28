@@ -96,14 +96,14 @@
     vertical-align: center;
     font-size: 16px;
   }
-  .exitButton {
+  .exitButton.button {
     position: fixed;
     right: 130px;
     bottom: 18px;
     background: #000;
     border-color: #000;
   }
-  .exitButton:hover {
+  .exitButton.button:hover {
     animation: rotate 1s linear infinite alternate;
     background: #555;
   }
