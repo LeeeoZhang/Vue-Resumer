@@ -9,7 +9,7 @@
         <transition name="fade"><Icon type="arrow-right-c" v-show="isLoginOrSignup === 'signup'"></Icon></transition>
         Sigup
       </span>
-      <div class="title animated bounceInDown"">
+      <div class="title animated bounceInDown">
         <h1>Resume</h1>
         <small>Write a better resume!</small>
       </div>
@@ -20,7 +20,8 @@
         <Input v-model="formData.username" placeholder="Username..." style="width: 300px" required></Input>
       </div>
       <div class="password">
-        <Input v-model="formData.password" type="password" placeholder="Passwrod..." style="width: 300px" required></Input>
+        <Input v-model="formData.password" type="password" placeholder="Passwrod..." style="width: 300px"
+               required></Input>
       </div>
       <div class="action">
         <input type="submit" value="Signup"></input>
@@ -33,7 +34,8 @@
         <Input v-model="formData.username" placeholder="Username..." style="width: 300px" required></Input>
       </div>
       <div class="password">
-        <Input v-model="formData.password" placeholder="Passwrod..." type="password" style="width: 300px" required></Input>
+        <Input v-model="formData.password" placeholder="Passwrod..." type="password" style="width: 300px"
+               required></Input>
       </div>
       <div class="action">
         <input type="submit" value="Login"></input>
@@ -89,9 +91,11 @@
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }
+
   .fade-enter, .fade-leave-to {
     opacity: 0
   }
+
   #signUpAndLogIn {
     display: flex;
     flex-direction: column;
@@ -106,32 +110,32 @@
     background: #333;
     color: #fff;
     border-radius: 5px;
-    >.tips {
+    > .tips {
       font-size: 14px;
-      >.title {
-        >h1 {
+      > .title {
+        > h1 {
           line-height: 1;
         }
         position: absolute;
         right: 3em;
         top: 2em;
       }
-      >span {
+      > span {
         position: relative;
         padding: 0 10px;
-        >i {
+        > i {
           position: absolute;
           color: #85d2bb;
           left: -.1em;
           top: .1em;
         }
       }
-      >span.active {
+      > span.active {
         color: #85d2bb;
       }
     }
-    >.signupForm,
-    >.loginForm {
+    > .signupForm,
+    > .loginForm {
       > .username {
         margin: 16px 0;
       }

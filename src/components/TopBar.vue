@@ -5,7 +5,7 @@
       <div v-if="logined" class="userActions">
         <span class="welcome">Hello，{{user.username}}</span>
         <Button type="ghost" class="button logout" @click.prevent="logOut">Logout</Button>
-        <Button type="primary"  class="button preview" @click.prevent="preview">Preview</Button>
+        <Button type="primary" class="button preview" @click.prevent="preview">Preview</Button>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@
   #TopBar {
     background: #fff;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
-    >.wrap {
+    > .wrap {
       min-width: 1024px;
       margin: 0 auto;
       height: 64px;
@@ -60,7 +60,7 @@
     .logo {
       font-size: 24px;
       color: #000;
-      background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a);
+      background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: changeColor 30s infinite;
@@ -92,15 +92,17 @@
       }
     }
   }
+
   @keyframes rotate {
     0% {
       transform: rotate(3deg);
     }
     100% {
       transform: rotate(-3deg);
-  }
+    }
 
   }
+
   @keyframes changeColor {
     from {
       -webkit-filter: hue-rotate(0deg);

@@ -2,60 +2,50 @@
   <div id="resumeEditor">
     <nav>
       <ol>
-        <li v-for="(item, index) in resumeConfig" :class="{active: item.field === selected}" @click="selected = item.field">
+        <li v-for="(item, index) in resumeConfig" :class="{active: item.field === selected}"
+            @click="selected = item.field">
           <svg class="icon">
-             <use :xlink:href="`#icon-${item.icon}`"></use>
+            <use :xlink:href="`#icon-${item.icon}`"></use>
           </svg>
           <p>{{iconDict[item.field]}}</p>
         </li>
       </ol>
     </nav>
     <ol class="panels">
-      <li v-for="(item, index) in resumeConfig" v-show="item.field === selected">
+      <li v-for="(item, index) in resumeConfig" v-show="item.field === selected" class="animated fadeIn">
         <h3>{{dict[item.field]}}
-          <Button type="ghost" shape="circle" icon="plus-round" v-if="item.field !== 'profile' && item.field !== 'contacts'" @click="addNewData(item)"></Button>
+          <Button type="ghost" shape="circle" icon="plus-round"
+                  v-if="item.field !== 'profile' && item.field !== 'contacts'" @click="addNewData(item)"></Button>
         </h3>
-          <div v-if="item.type === 'array'">
-            <div v-for="(subitem, i) in resume[item.field]">
-              <div class="deleteAction">
-                <hr>
-                <Icon type="ios-arrow-right"></Icon>
-                <Button type="ghost" shape="circle" icon="ios-trash-outline" size="small" @click="deleteData(i, item)"></Button>
-              </div>
-              <div class="resumeInfo" v-for="(value, key) in subitem">
-                <label>{{key}}</label>
-                <Input v-if="key === 'details'" :value="value" type="textarea" :autosize="true" placeholder="Please enter..." @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
-                <Input v-else placeholder='Please enter...' :value="value" @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
-              </div>
+        <div v-if="item.type === 'array'">
+          <div v-for="(subitem, i) in resume[item.field]">
+            <div class="deleteAction">
+              <hr>
+              <Icon type="ios-arrow-right"></Icon>
+              <Button type="ghost" shape="circle" icon="ios-trash-outline" size="small"
+                      @click="deleteData(i, item)"></Button>
+            </div>
+            <div class="resumeInfo" v-for="(value, key) in subitem">
+              <label>{{key}}</label>
+              <Input v-if="key === 'details'" :value="value" type="textarea" :autosize="true"
+                     placeholder="Please enter..."
+                     @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
+              <Input v-else placeholder='Please enter...' :value="value"
+                     @on-change="changeResumeInfo(`${item.field}.${i}.${key}`, $event.target.value)"></Input>
             </div>
           </div>
+        </div>
 
-          <div v-else class="resumeInfo animated" v-for="(value, key) in resume[item.field]">
-            <label>{{key}}</label>
-            <Input placeholder="Please enter..." :value="value" style="width: 300px" @on-change="changeResumeInfo(`${item.field}.${key}`,$event.target.value)"></Input>
-          </div>
+        <div v-else class="resumeInfo" v-for="(value, key) in resume[item.field]">
+          <label>{{key}}</label>
+          <Input placeholder="Please enter..." :value="value" style="width: 300px"
+                 @on-change="changeResumeInfo(`${item.field}.${key}`,$event.target.value)"></Input>
+        </div>
       </li>
     </ol>
   </div>
 
 
-
-    <!--<ol class="panels">-->
-      <!--<li v-for="(item, index) in resumeConfig" v-show="item.field === selected">-->
-        <!--<div v-if="item.type === 'array'">-->
-          <!--<div class="subitem" v-for="(subitem, i) in resume[item.field]">-->
-            <!--<div class="resumeField" v-for="(value, key) in subitem">-->
-              <!--<label>{{key}}</label>-->
-              <!--<input type="text" :value="value" @input="changeResumeField(`${item.field}.${i}.${key}`, $event.target.value)">-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div v-else class="resumeField" v-for="(value, key) in resume[item.field]">-->
-          <!--<label >{{key}}</label>-->
-          <!--<input type="text" :value="value" @input="changeResumeField(`${item.field}.${key}`,$event.target.value)">-->
-        <!--</div>-->
-      <!--</li>-->
-    <!--</ol>-->
 </template>
 
 <script>
@@ -69,6 +59,7 @@
           education: 'Education',
           projects: 'Project Experience',
           awards: 'Awards',
+          skills: 'Skills',
           contacts: 'Contacts'
         },
         iconDict: {
@@ -77,6 +68,7 @@
           education: 'Education',
           projects: 'Projects',
           awards: 'Awards',
+          skills: 'Skills',
           contacts: 'Contacts'
         }
       }
@@ -115,25 +107,20 @@
 </script>
 
 <style scoped lang="scss">
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
-    opacity: 1;
-  }
+
   #resumeEditor {
     background: #fff;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: row;
     min-width: 35%;
     transition: left 1s;
-    >.panels{
+    > .panels {
       flex-grow: 1;
       overflow: auto;
-      >li {
+      > li {
         padding: 24px;
-        >h3 {
+        > h3 {
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -143,7 +130,7 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-          >hr {
+          > hr {
             flex-grow: 1;
           }
         }
@@ -157,7 +144,7 @@
           input[type=text] {
             margin: 16px 0;
             border: 1px solid #ddd;
-            box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.25);
+            box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.25);
             width: 100%;
             height: 40px;
             padding: 0 8px;
@@ -165,21 +152,21 @@
         }
       }
     }
-    >nav {
+    > nav {
       width: 72px;
       background: #000;
       color: #fff;
-      &:hover{
-        >ol{
-          >li {
+      &:hover {
+        > ol {
+          > li {
             p {
               transform: translateX(0px)
             }
           }
         }
       }
-      >ol {
-        >li {
+      > ol {
+        > li {
           height: 48px;
           display: flex;
           flex-direction: column;
@@ -207,10 +194,17 @@
             height: 24px;
           }
         }
+        li:nth-child(6) {
+          svg.icon {
+            width: 32px;
+            height: 32px;
+          }
+        }
       }
     }
   }
+
   #resumeEditor.preview {
-   display: none;
+    display: none;
   }
 </style>

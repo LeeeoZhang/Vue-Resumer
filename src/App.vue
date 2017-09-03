@@ -4,13 +4,15 @@
       <header v-if="signUpOrLogIn === true" :class="{preview: isPreview}">
         <TopBar @close="signUpOrLogIn = false" class="animated bounceInDown" @preview="isPreview = true"/>
       </header>
-      <main v-if="signUpOrLogIn === true">
+      <main v-if="signUpOrLogIn === true" :class="{preview: isPreview}">
         <ResumeEditor class="animated bounceInLeft" :class="{preview: isPreview}"/>
         <ResumePreview class="animated bounceInRight" :class="{preview: isPreview}"/>
       </main>
       <SignUpAndLogIn @success="logIn($event)" v-if="signUpOrLogIn === false"></SignUpAndLogIn>
     </div>
-    <Button type="primary" class="button exitButton"  v-show="isPreview" @click.prevent="isPreview = false" >Exit Preview</Button>
+    <Button type="primary" class="button exitButton" v-show="isPreview" @click.prevent="isPreview = false">
+      Exit Preview
+    </Button>
   </div>
 </template>
 
@@ -69,9 +71,9 @@
     flex-direction: column;
     background: #ccc;
     min-width: 1024px;
-    min-height: 500px;
+    min-height: 560px;
     position: relative;
-    >main {
+    > main {
       position: relative;
       flex-grow: 1;
       min-width: 1024px;
@@ -82,13 +84,17 @@
       width: 100%;
       align-self: center;
     }
-    >header {
+    /*> main.preview {*/
+      /*justify-content: center;*/
+    /*}*/
+    > header {
       transition: transform .5s;
     }
-    >header.preview {
+    > header.preview {
       transform: translateY(-100%);
     }
   }
+
   svg.icon {
     height: 1em;
     width: 1em;
@@ -96,13 +102,15 @@
     vertical-align: center;
     font-size: 16px;
   }
+
   .exitButton.button {
     position: fixed;
-    right: 130px;
-    bottom: 18px;
+    right: 1em;
+    bottom: 1em;
     background: #000;
     border-color: #000;
   }
+
   .exitButton.button:hover {
     animation: rotate 1s linear infinite alternate;
     background: #555;

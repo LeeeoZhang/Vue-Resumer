@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import objectPath from 'object-path'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -12,12 +13,13 @@ export default new Vuex.Store({
     },
     resume: {},
     resumeConfig: [
-        {field: 'profile', icon: 'id', key: ['name', 'city', 'title', 'birthday']},
-        {field: 'workHistory', icon: 'work', type: 'array', key: ['company', 'details']},
-        {field: 'education', icon: 'book', type: 'array', key: ['school', 'degree']},
-        {field: 'projects', icon: 'heart', type: 'array', key: ['name', 'details']},
-        {field: 'awards', icon: 'cup', type: 'array', key: ['name', 'details']},
-        {field: 'contacts', icon: 'phone', key: ['email', 'tel', 'github']}]
+      {field: 'profile', icon: 'id', key: ['name', 'city', 'title', 'birthday']},
+      {field: 'workHistory', icon: 'work', type: 'array', key: ['company', 'details']},
+      {field: 'education', icon: 'book', type: 'array', key: ['school', 'degree']},
+      {field: 'projects', icon: 'heart', type: 'array', key: ['name', 'details']},
+      {field: 'awards', icon: 'cup', type: 'array', key: ['name', 'details']},
+      {field: 'skills', icon: 'skill', type: 'array', key: ['skill', 'percent']},
+      {field: 'contacts', icon: 'phone', key: ['email', 'tel', 'github']}]
   },
   mutations: {
     switchTab (state, playload) {

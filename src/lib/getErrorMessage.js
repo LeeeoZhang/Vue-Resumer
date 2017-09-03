@@ -1,9 +1,9 @@
 const map = {
-  202: '用户名以被占用',
-  217: '无效的用户名',
-  210: '用户名和密码不匹配',
-  211: '找不到该用户名',
-  unknown: '请求失败，稍后尝试'
+  202: 'The username is occupied',
+  217: 'Invalid username',
+  210: 'The username and password do not match',
+  211: 'The username could not be found',
+  unknown: 'The request failed and tried later'
 }
 export default function ({code}) {
   return map[code] || map.unknown
