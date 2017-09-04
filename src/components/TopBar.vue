@@ -9,6 +9,7 @@
         <Button type="primary" class="button preview" @click.prevent="preview">Preview</Button>
       </div>
     </div>
+    <span>Sav</span>
   </div>
 </template>
 
@@ -46,10 +47,23 @@
         })
       },
       save () {
-        saveOrUpdateResume(this.$store.state)
+        new Promise((resolve, reject) => {
+          saveOrUpdateResume(this.$store.state)
+          resolve()
+        }).then(() => {
+          this.info()
+        }).catch((error) => {
+          console.log(error)
+        })
       },
       preview () {
         this.$emit('preview')
+      },
+      info () {
+        this.$Message.info({
+          content: this.$store.state.saveSuccess,
+          duration: 3
+        })
       }
     }
   }

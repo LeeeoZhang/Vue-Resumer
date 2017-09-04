@@ -12,8 +12,10 @@ export default function (state) {
     avResume.save().then((value) => {
       state.resume.id = value.id
       console.log('保存成功')
+      state.saveSuccess = 'Saved successfully'
     }, function (error) {
       console.log('保存失败', error)
+      state.saveSuccess = 'Save failed'
     })
   } else {
     let resume = JSON.stringify(state.resume)
@@ -22,8 +24,10 @@ export default function (state) {
     avResume.set('content', resume)
     avResume.save().then(() => {
       console.log('更新成功')
+      state.saveSuccess = 'Saved successfully'
     }, function (error) {
       console.log('更新失败', error)
+      state.saveSuccess = 'Save failed'
     })
   }
 }
