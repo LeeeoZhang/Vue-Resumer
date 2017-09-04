@@ -9,7 +9,6 @@
         <Button type="primary" class="button preview" @click.prevent="preview">Preview</Button>
       </div>
     </div>
-    <span>Sav</span>
   </div>
 </template>
 
