@@ -70,7 +70,7 @@
         user.setUsername(username)
         user.setPassword(password)
         user.signUp().then(() => {
-          this.$emit('success', getAVUser())
+          this.loadData()
         }, (error) => {
           this.errorMessage = getErrorMessage(error)
         })
@@ -78,9 +78,19 @@
       logIn () {
         let {username, password} = this.formData
         AV.User.logIn(username, password).then(() => {
-          this.$emit('success', getAVUser())
+          this.loadData()
         }, (error) => {
           this.errorMessage = getErrorMessage(error)
+        })
+      },
+      loadData () {
+        let query = new AV.Query('AVresume')
+        query.find().then((value) => {
+          this.$emit('success', getAVUser())
+          let resume = value[0]
+          this.$store.commit('updateState', JSON.parse(resume.attributes.content))
+        }, function (error) {
+          console.log(error)
         })
       }
     }

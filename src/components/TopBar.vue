@@ -4,6 +4,7 @@
       <span class="logo">Resumer</span>
       <div v-if="logined" class="userActions">
         <span class="welcome">Hello，{{user.username}}</span>
+        <Button type="ghost" class="button save" @click.prevent="save">Save</Button>
         <Button type="ghost" class="button logout" @click.prevent="logOut">Logout</Button>
         <Button type="primary" class="button preview" @click.prevent="preview">Preview</Button>
       </div>
@@ -14,6 +15,7 @@
 <script>
   import SignUpAndLogIn from './SignUpAndLogIn'
   import AV from '../lib/leancloud'
+  import saveOrUpdateResume from '../lib/saveOrUpdateResume'
 
   export default {
     name: 'TopBar',
@@ -33,9 +35,18 @@
     },
     methods: {
       logOut () {
-        AV.User.logOut()
-        this.$store.commit('removeUser')
-        this.$emit('close')
+        new Promise((resolve, reject) => {
+          this.save()
+          resolve()
+        }).then(() => {
+          AV.User.logOut()
+          this.$store.commit('removeUser')
+          this.$store.commit('initState')
+          this.$emit('close')
+        })
+      },
+      save () {
+        saveOrUpdateResume(this.$store.state)
       },
       preview () {
         this.$emit('preview')
@@ -88,6 +99,9 @@
         align-self: flex-end;
       }
       .logout {
+        margin-right: .8em;
+      }
+      .save {
         margin-right: .8em;
       }
     }

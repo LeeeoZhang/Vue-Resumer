@@ -26,7 +26,7 @@
   import SignUpAndLogIn from './components/SignUpAndLogIn'
   import icons from './assets/icons'
   import store from './store/index'
-  import getAVUser from './lib/getAVUser'
+//  import saveOrUpdateResume from './lib/saveOrUpdateResume'
 
   export default {
     name: 'app',
@@ -45,15 +45,7 @@
     },
     created () {
       document.body.insertAdjacentHTML('afterbegin', icons)
-      let state = localStorage.getItem('state')
-      if (state) {
-        state = JSON.parse(state)
-      }
-      this.$store.commit('initState', state)
-      this.$store.commit('setUser', getAVUser())
-      if (this.userid) {
-        this.signUpOrLogIn = true
-      }
+      this.$store.commit('initState')
     },
     methods: {
       logIn (user) {

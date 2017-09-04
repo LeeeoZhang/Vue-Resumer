@@ -30,7 +30,7 @@ export default new Vuex.Store({
       objectPath.set(state.resume, path, value)
       localStorage.setItem('state', JSON.stringify(state))
     },
-    initState (state, playload) {
+    initState (state) {
       state.resumeConfig.map((item) => {
         if (item.type === 'array') {
           Vue.set(state.resume, item.field, [])
@@ -41,8 +41,14 @@ export default new Vuex.Store({
           })
         }
       })
-      Object.assign(state, playload)
+      state.resume.id = ''
       localStorage.setItem('state', JSON.stringify(state))
+    },
+    updateState (state, playload) {
+      if (playload) {
+        Object.assign(state.resume, playload)
+        localStorage.setItem('state', JSON.stringify(state))
+      }
     },
     setUser (state, playload) {
       Object.assign(state.user, playload)
@@ -51,7 +57,6 @@ export default new Vuex.Store({
     removeUser (state) {
       state.user.id = ''
       state.user.username = ''
-      localStorage.setItem('state', JSON.stringify(state))
     },
     addNewData (state, dataConfig) {
       let name = dataConfig.key[0]
