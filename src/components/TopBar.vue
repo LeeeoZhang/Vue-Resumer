@@ -1,7 +1,7 @@
 <template>
   <div id="TopBar">
     <div class="wrap">
-      <span class="logo">Resumer</span>
+      <span class="logo">resumer</span>
       <div v-if="logined" class="userActions">
         <span class="welcome">Hello，{{user.username}}</span>
         <Button type="ghost" class="button save" @click.prevent="save">Save</Button>
@@ -83,6 +83,9 @@
     }
     .logo {
       font-size: 24px;
+      font-weight: bold;
+      font-variant: small-caps;
+      letter-spacing: .3em;
       color: #000;
       background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
       -webkit-background-clip: text;
